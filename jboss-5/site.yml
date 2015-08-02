@@ -1,8 +1,0 @@
----
-# JBoss 5 EAP Playbook. 
-
-- hosts: jboss-5-servers
-  remote_user: jenkins
-
-  roles:
-    - jboss-5-profile

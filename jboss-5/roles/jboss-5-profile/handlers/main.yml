@@ -1,5 +1,0 @@
----
-- name: restart jbossas
-  service name=jbossas state=jbossas
-  become: yes
-  become_method: sudo
