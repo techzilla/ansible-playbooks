@@ -16,7 +16,7 @@
   command: openssl genrsa -out "{{ ssl_key_path }}/localhost.key" 2048
 
 - name: Generate CSR
-  command: openssl req -extensions v3_req -config /tmp/openssl.cnf -new -key "{{ ssl_key_path }}/localhost.key" -out "{{ ssl_cert_path }}/localhost.csr"  -subj "/C=US/ST=Ohio/L=Cleveland/O=AmTrust North America, Inc./OU=IT/CN={{ ansible_hostname }}"
+  command: openssl req -extensions v3_req -config /tmp/openssl.cnf -new -key "{{ ssl_key_path }}/localhost.key" -out "{{ ssl_cert_path }}/localhost.csr"  -subj "/C=US/ST=Ohio/L=Cleveland/O=Company, Inc./OU=IT/CN={{ ansible_hostname }}"
   
   
 - name: Web Enroll Script

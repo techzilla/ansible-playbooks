@@ -1,0 +1,9 @@
+---
+# file: initialize.yml
+- hosts: initialize
+  sudo: True
+  roles:
+    - autoenroll
+
+
+
