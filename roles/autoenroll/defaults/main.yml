@@ -1,0 +1,7 @@
+---
+# autoenroll defaults
+ca_serv_url: "https://server.example.com/certsrv"
+
+ssl_key_path: "/etc/pki/tls/private"
+ssl_cert_path: "/etc/pki/tls/certs"
+

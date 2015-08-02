@@ -1,0 +1,32 @@
+---
+# autoenroll tasks
+
+#- name: Install packages
+#  yum: name={{ item }} state=latest
+#  with_items:
+#    - libselinux-python
+#    - ca-certificates
+
+
+  ## Enroll Host
+- name: OpenSSL Config
+  template: src=openssl.cnf.j2 dest=/tmp/openssl.cnf
+  
+- name: Generate Key
+  command: openssl genrsa -out "{{ ssl_key_path }}/localhost.key" 2048
+
+- name: Generate CSR
+  command: openssl req -extensions v3_req -config /tmp/openssl.cnf -new -key "{{ ssl_key_path }}/localhost.key" -out "{{ ssl_cert_path }}/localhost.csr"  -subj "/C=US/ST=Ohio/L=Cleveland/O=AmTrust North America, Inc./OU=IT/CN={{ ansible_hostname }}"
+  
+  
+- name: Web Enroll Script
+  sudo: False
+  script: "{{ inventory_dir }}/scripts/ssl-webenroll.sh {{ ca_serv_url }} {{ ssl_cert_path }}/localhost.csr /tmp/localhost.crt"
+
+# Sudo/Kerberos Workaround
+- name: Move Signed CRT
+  command: mv /tmp/localhost.crt "{{ ssl_cert_path }}/localhost.crt"
+- name: Fix Permissions
+  file: path="{{ ssl_cert_path }}/localhost.crt" owner=root group=root mode=0644
+- name: Fix SELinux Context
+  command: restorecon "{{ ssl_cert_path }}/localhost.crt"
