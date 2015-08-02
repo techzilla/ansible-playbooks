@@ -7,5 +7,3 @@
   - hostname.domain
 - Submit CSR
   - AD CS Web Enrollment
-
-
